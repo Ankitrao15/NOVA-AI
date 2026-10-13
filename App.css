@@ -1,0 +1,509 @@
+
+/* ===== Global Reset ===== */
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  color: #f5f5f7;
+  background: #0b0d10;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* ===== Main Layout ===== */
+.app {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: #0b0d10;
+}
+
+/* ===== Sidebar ===== */
+.sidebar {
+  width: 250px;
+  min-width: 250px;
+  display: flex;
+  flex-direction: column;
+  padding: 22px 16px;
+  background: #111419;
+  border-right: 1px solid #292d35;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 0 28px;
+  font-size: 21px;
+  font-weight: 750;
+  letter-spacing: -0.5px;
+}
+
+.logo-icon,
+.nova-logo {
+  display: grid;
+  place-items: center;
+  color: white;
+  background: linear-gradient(135deg, #8058ff, #23c5ed);
+  font-weight: 700;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 13px;
+  font-size: 23px;
+}
+
+.new-chat {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #30343e;
+  border-radius: 12px;
+  color: #fff;
+  background: #20242c;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.new-chat:hover,
+.menu button:hover,
+.sidebar-bottom button:hover {
+  background: #292e38;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: 24px;
+}
+
+.menu button,
+.sidebar-bottom button {
+  padding: 11px 12px;
+  text-align: left;
+  color: #c5c9d2;
+  background: transparent;
+  border: none;
+  border-radius: 9px;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.sidebar-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+  margin-top: auto;
+}
+
+/* ===== Main Panel ===== */
+.main {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  flex-direction: column;
+  position: relative;
+}
+
+.topbar {
+  height: 70px;
+  min-height: 70px;
+  padding: 0 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #292d35;
+  background: #0b0d10;
+}
+
+.topbar h2 {
+  margin: 0 0 4px;
+  font-size: 19px;
+  font-weight: 650;
+}
+
+.topbar span {
+  color: #8f96a3;
+  font-size: 12px;
+}
+
+.profile {
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  background: #252a34;
+}
+
+/* ===== Welcome Screen ===== */
+.welcome {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 20px;
+  text-align: center;
+}
+
+.nova-logo {
+  width: 70px;
+  height: 70px;
+  border-radius: 22px;
+  font-size: 35px;
+  margin-bottom: 24px;
+  box-shadow: 0 10px 40px #634cff20;
+}
+
+.welcome h1 {
+  margin: 0 0 8px;
+  font-size: clamp(27px, 3vw, 38px);
+  letter-spacing: -1.4px;
+}
+
+.welcome h1 span {
+  color: #8b70ff;
+  background: linear-gradient(90deg, #8b70ff, #29c7ed);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.welcome > p {
+  margin: 0;
+  color: #959ba7;
+  font-size: 15px;
+}
+
+.suggestions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(150px, 180px));
+  gap: 10px;
+  margin-top: 36px;
+}
+
+.suggestions button {
+  padding: 14px 12px;
+  color: #d6d8df;
+  background: #161a20;
+  border: 1px solid #2c313b;
+  border-radius: 12px;
+  font-size: 13px;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.suggestions button:hover {
+  background: #242936;
+  transform: translateY(-2px);
+}
+
+/* ===== Chat Messages ===== */
+.chat-messages {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 28px max(24px, calc((100% - 760px) / 2));
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  scroll-behavior: smooth;
+}
+
+.message {
+  width: fit-content;
+  max-width: min(85%, 680px);
+  padding: 14px 17px;
+  border-radius: 17px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+  animation: messageIn 0.2s ease-out;
+}
+
+.message strong {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 12px;
+  font-weight: 650;
+  color: #a99aff;
+}
+
+.message p {
+  margin: 0;
+  white-space: pre-wrap;
+  font-size: 14px;
+}
+
+.user-message {
+  align-self: flex-end;
+  color: #f5f5f7;
+  background: #252a35;
+  border: 1px solid #343a47;
+  border-bottom-right-radius: 5px;
+}
+
+.user-message strong {
+  color: #c8c0ff;
+}
+
+.ai-message {
+  align-self: flex-start;
+  color: #e4e6ec;
+  background: #14171d;
+  border: 1px solid #292e38;
+  border-bottom-left-radius: 5px;
+}
+
+.chat-error {
+  max-width: 760px;
+  margin: 0 auto 10px;
+  padding: 10px 13px;
+  color: #ffb4b4;
+  background: #351b20;
+  border: 1px solid #693038;
+  border-radius: 9px;
+  font-size: 12px;
+}
+
+/* ===== Input Area ===== */
+.input-area {
+  width: 100%;
+  padding: 12px 30px 22px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    #0b0d10 18%
+  );
+}
+
+.input-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 800px;
+  min-height: 58px;
+  margin: 0 auto;
+  padding: 7px 8px 7px 12px;
+  background: #171a20;
+  border: 1px solid #333844;
+  border-radius: 17px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-box:focus-within {
+  border-color: #7660ee;
+  box-shadow: 0 0 0 3px #7660ee16;
+}
+
+.input-box input {
+  flex: 1;
+  width: 0;
+  min-width: 0;
+  padding: 10px 4px;
+  color: #f5f5f7;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+.input-box input::placeholder {
+  color: #858b98;
+}
+
+.input-box button {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border: none;
+}
+
+.attach,
+.voice {
+  width: 34px;
+  height: 34px;
+  color: #c4c8d1;
+  background: transparent;
+  border-radius: 9px;
+}
+
+.attach:hover,
+.voice:hover {
+  background: #292e38;
+}
+
+.send {
+  width: 42px;
+  height: 42px;
+  color: white;
+  background: #7957ff;
+  border-radius: 13px;
+  font-size: 19px;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.send:hover:not(:disabled) {
+  background: #6742f0;
+  transform: scale(1.04);
+}
+
+.send:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.input-area > p {
+  margin: 13px auto 0;
+  text-align: center;
+  color: #747b89;
+  font-size: 11px;
+}
+
+/* ===== Animation ===== */
+@keyframes messageIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 700px) {
+  .sidebar {
+    width: 68px;
+    min-width: 68px;
+    padding: 16px 8px;
+    align-items: center;
+  }
+
+  .logo {
+    padding-bottom: 24px;
+  }
+
+  .logo > span,
+  .menu button,
+  .sidebar-bottom button {
+    font-size: 0;
+  }
+
+  .logo-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .new-chat {
+    padding: 12px 3px;
+    font-size: 11px;
+    overflow: hidden;
+  }
+
+  .menu {
+    width: 100%;
+  }
+
+  .menu button {
+    text-align: center;
+    padding: 12px 0;
+  }
+
+  .sidebar-bottom {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .sidebar-bottom button {
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  .topbar {
+    padding: 0 16px;
+  }
+
+  .welcome {
+    padding: 22px 12px;
+  }
+
+  .welcome h1 {
+    font-size: 27px;
+  }
+
+  .welcome > p {
+    font-size: 13px;
+  }
+
+  .suggestions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    max-width: 360px;
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  .suggestions button {
+    padding: 12px 6px;
+    font-size: 11px;
+  }
+
+  .chat-messages {
+    padding: 20px 12px;
+    gap: 16px;
+  }
+
+  .message {
+    max-width: 92%;
+    padding: 12px 13px;
+  }
+
+  .message p {
+    font-size: 13px;
+  }
+
+  .input-area {
+    padding: 10px 10px 16px;
+  }
+
+  .input-box {
+    gap: 4px;
+    min-height: 54px;
+    border-radius: 15px;
+  }
+
+  .send {
+    width: 38px;
+    height: 38px;
+  }
+
+  .voice {
+    display: none !important;
+  }
+}
